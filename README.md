@@ -12,6 +12,7 @@ POC application to implement Q&amp;A on a website utilizing the Langchain framew
     ```commandline
     poetry install
     ```
+5. Create a `.env` file in the root directory using the provided `.env.example` file as a template.
 
 ## Running the application
 ### Crawler
@@ -46,3 +47,9 @@ INFO - Report saved to report.csv
 ```commandline
 poetry run process_urls --help 
 ```
+
+### Start gradio app
+```commandline
+poetry run app
+```
+App will be available at `http://localhost:7860`

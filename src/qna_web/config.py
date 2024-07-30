@@ -20,3 +20,11 @@ TEXT_SPLITTER_CHUNK_SIZE = 500
 TEXT_SPLITTER_CHUNK_OVERLAP = 20
 
 REPORT_FILENAME = "report.csv"
+
+HTML_VECTOR_INDEX_FILENAME = "html_vector_index"
+TEXT_VECTOR_INDEX_FILENAME = "text_vector_index"
+
+APP_USER = os.getenv("APP_USER", "admin")
+APP_PASSWORD = os.getenv("APP_PASSWORD")
+if not APP_PASSWORD:
+    raise ValueError("APP_PASSWORD is not set")

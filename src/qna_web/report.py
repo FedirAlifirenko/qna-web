@@ -9,10 +9,9 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel
 from langchain_core.runnables import Runnable
 from langchain_core.utils.function_calling import convert_to_openai_tool
-from langchain_openai import ChatOpenAI
-from pydantic.v1 import SecretStr
 
 from qna_web import config
+from qna_web.dependencies import get_llm
 
 logger = logging.getLogger(__name__)
 
@@ -73,11 +72,7 @@ def generate_report(documents: Iterable[Document]) -> None:
 
 
 def _get_llm_chain() -> Runnable[dict[str, Any], Any]:
-    llm = ChatOpenAI(
-        api_key=SecretStr(config.OPENAI_API_KEY),
-        model=config.OPENAI_MODEL_NAME,
-        temperature=config.OPENAI_MODEL_TEMPERATURE,
-    )
+    llm = get_llm()
     prompt = ChatPromptTemplate.from_template(
         """Answer the following question based only on the provided context:
 

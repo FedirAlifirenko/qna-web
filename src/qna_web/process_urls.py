@@ -8,9 +8,9 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from pydantic.v1 import SecretStr
 
 from qna_web import config
+from qna_web.dependencies import get_embeddings
 from qna_web.report import generate_report
 
 logger = logging.getLogger(__name__)
@@ -21,19 +21,18 @@ def main(
     urls_chunk_size: int = 10,
     skip_report: bool = False,
 ) -> None:
-    embeddings = OpenAIEmbeddings(
-        api_key=SecretStr(config.OPENAI_API_KEY),
-        model=config.OPENAI_EMBEDDINGS_MODEL_NAME,
-    )
+    embeddings = get_embeddings()
 
     urls = load_urls_from_file(urls_filename)
 
     html_documents = fetch_urls_as_docs(urls, urls_chunk_size=urls_chunk_size)
-    split_html_documents = split_documents_and_save_index(html_documents, "html_vector_index", embeddings)
+    split_html_documents = split_documents_and_save_index(
+        html_documents, config.HTML_VECTOR_INDEX_FILENAME, embeddings
+    )
 
     transformer = Html2TextTransformer()
     text_documents = transformer.transform_documents(html_documents)
-    split_documents_and_save_index(text_documents, "text_vector_index", embeddings)
+    split_documents_and_save_index(text_documents, config.TEXT_VECTOR_INDEX_FILENAME, embeddings)
 
     if not skip_report:
         generate_report(split_html_documents)
