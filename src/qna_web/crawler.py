@@ -101,7 +101,7 @@ def main(start_url: str, max_seen_urls: int = 10) -> None:
     save_urls(result_urls, f"{URL(start_url).host}-urls.txt")
 
 
-def entrypoint():
+def entrypoint() -> None:
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",

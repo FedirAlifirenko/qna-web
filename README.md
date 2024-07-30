@@ -26,3 +26,23 @@ INFO - Written 3 urls to gradio.app-urls.txt
 ```commandline
 poetry run crawler --help 
 ```
+
+### Process URLs (data preparation)
+#### ⚠️ Ensure that .env file is present in the root directory with the `OPENAI_API_KEY` variable set.
+
+```commandline
+poetry run process_urls gradio.app-urls.txt
+```
+#### If successful, the process_urls script will output the following messages to the console:
+```text
+...
+INFO - Saved index to html_vector_index
+...
+INFO - Saved index to text_vector_index
+...
+INFO - Report saved to report.csv
+```
+#### You can get usage information by running:
+```commandline
+poetry run process_urls --help 
+```

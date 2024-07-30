@@ -16,6 +16,9 @@ pandas = "^2.2.2"
 gradio = "^4.39.0"
 beautifulsoup4 = "^4.12.3"
 playwright = "^1.45.1"
+faiss-cpu = "^1.8.0.post1"
+html2text = "^2024.2.26"
+lxml = "^5.2.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.2"
@@ -25,6 +28,31 @@ mypy = "^1.11.0"
 
 [tool.poetry.scripts]
 crawler = "qna_web.crawler:entrypoint"
+process_urls = "qna_web.process_urls:entrypoint"
+
+[tool.black]
+line-length = 110
+target-version = ['py312']
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+# Python version used to parse and check the target platform.
+python_version = "3.12"
+# Run mypy for all *.py files.
+# You may want to change it to run for the selected packages (then specify the packages in the Makefile as -p argument to mypy and remove the files parameter below)
+files = "**/*.py"
+# Enables all optional error checking flags
+strict = "true"
+# Produces a warning when returning a value with type Any from a function declared with a non-Any return type.
+# The issue is that combining a typed variable with Any variable produces Any.
+warn_return_any = "false"
+# Use visually nicer output in error messages.
+pretty = "true"
+# A comma-separated list of mypy plugins. It is used to add types for 3rd party libraries.
+# plugins = ""
+install_types = "true"
 
 [build-system]
 requires = ["poetry-core"]
