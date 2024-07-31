@@ -69,10 +69,10 @@ def main() -> None:
                     label="Possible vulnerabilities in the HTML pages",
                 )
 
-                gr.ChatInterface(fn=chat_html_fn, title="Q&A over html")
+                gr.ChatInterface(fn=chat_html_fn, title="Q&A over html", chatbot=gr.Chatbot(scale=2))
 
             with gr.Tab("Text"):
-                gr.ChatInterface(fn=chat_text_fn, title="Q&A over text")
+                gr.ChatInterface(fn=chat_text_fn, title="Q&A over text", chatbot=gr.Chatbot(scale=2))
 
     demo.launch(auth=(config.APP_USER, config.APP_PASSWORD))
 
